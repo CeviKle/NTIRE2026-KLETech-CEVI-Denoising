@@ -1,0 +1,32 @@
+name: denoising_test_150000
+model_type: SwinIRModel
+scale: 1
+num_gpu: 0
+
+path:
+  pretrain_network_g: experiments/swinir_denoising_ntire/models/12_swinir.pth
+  strict_load_g: true
+
+datasets:
+  test:
+    name: test
+    type: SingleImageDataset
+    dataroot_lq: /NTIRE2026/C7_Denoising/LSDIR_DIV2K_Test_Sigma50
+    io_backend:
+      type: disk
+
+network_g:
+  type: SwinIR
+  img_size: 128
+  window_size: 8
+  embed_dim: 96
+  depths: [6,6,6,6]
+  num_heads: [6,6,6,6]
+  mlp_ratio: 4
+  upscale: 1
+  img_range: 1.
+  resi_connection: 1conv
+
+val:
+  save_img: true
+  suffix: ''
